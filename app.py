@@ -8,8 +8,8 @@ st.set_page_config(page_title="Vacivida - Dashboard de Eventos Adversos", layout
 
 st.title("💉 Vacivida - Dashboard de Eventos Adversos Pós-Vacinação")
 
-# Caminho para o arquivo parquet
-caminho_arquivo = os.path.join("data", "eventos_adversos.parquet")
+# Caminho corrigido para o arquivo parquet
+caminho_arquivo = os.path.join("data", "prod.vcvd_eventos_adverso.parquet")
 
 # Leitura do arquivo parquet
 @st.cache_data
