@@ -6,8 +6,8 @@ import matplotlib.pyplot as plt
 st.set_page_config(page_title="Vacivida - Dashboard de Eventos Adversos", layout="wide")
 st.title("💉 Vacivida - Dashboard de Eventos Adversos Pós-Vacinação")
 
-# URL do arquivo CSV no servidor
-url = "http://chatgptia.maximizia.com.br/prod.vcvd_eventos_adverso.csv"
+# Nova URL do arquivo CSV no servidor
+url = "http://multibeat.com.br/prod.vcvd_eventos_adverso.csv"
 
 # Leitura dos dados
 @st.cache_data
