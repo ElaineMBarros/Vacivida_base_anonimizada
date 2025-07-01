@@ -2,25 +2,22 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import urllib.request
-from io import BytesIO
+import requests
+from io import StringIO
 
 st.set_page_config(page_title="Vacivida - Dashboard de Eventos Adversos", layout="wide")
 st.title("💉 Vacivida - Dashboard de Eventos Adversos Pós-Vacinação")
 
-# URL do CSV no servidor
-url = "http://multibeat.com.br/estudonautapy/prod.vcvd_eventos_adverso.csv"
+# URL direto de download do Google Drive
+url = "https://drive.google.com/uc?export=download&id=1E0e9km5FNg0nrL8eVAkmFcACxCZgXVZy"
 
-# Função para carregar com headers personalizados
+# Função para carregar os dados com headers
 @st.cache_data
 def carregar_dados():
-    req = urllib.request.Request(
-        url,
-        headers={"User-Agent": "Mozilla/5.0"}
-    )
-    with urllib.request.urlopen(req) as response:
-        data = response.read()
-    return pd.read_csv(BytesIO(data), encoding="latin1", sep=";")
+    headers = {"User-Agent": "Mozilla/5.0"}
+    response = requests.get(url, headers=headers)
+    response.encoding = 'latin1'
+    return pd.read_csv(StringIO(response.text), sep=";")
 
 df = carregar_dados()
 
