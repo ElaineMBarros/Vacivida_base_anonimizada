@@ -2,22 +2,16 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import requests
-from io import StringIO
 
 st.set_page_config(page_title="Vacivida - Dashboard de Eventos Adversos", layout="wide")
 st.title("💉 Vacivida - Dashboard de Eventos Adversos Pós-Vacinação")
 
-# URL direto de download do Google Drive
-url = "https://drive.google.com/uc?export=download&id=1E0e9km5FNg0nrL8eVAkmFcACxCZgXVZy"
+# URL do CSV zipado no GitHub (arquivo na raiz do repositório)
+url = "https://raw.githubusercontent.com/ElaineMBarros/Vacivida_base_anonimizada/main/prod.vcvd_eventos_adverso.zip"
 
-# Função para carregar os dados com headers
 @st.cache_data
 def carregar_dados():
-    headers = {"User-Agent": "Mozilla/5.0"}
-    response = requests.get(url, headers=headers)
-    response.encoding = 'latin1'
-    return pd.read_csv(StringIO(response.text), sep=";")
+    return pd.read_csv(url, compression='zip', encoding="latin1", sep=";")
 
 df = carregar_dados()
 
