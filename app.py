@@ -2,17 +2,25 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import urllib.request
+from io import BytesIO
 
 st.set_page_config(page_title="Vacivida - Dashboard de Eventos Adversos", layout="wide")
 st.title("💉 Vacivida - Dashboard de Eventos Adversos Pós-Vacinação")
 
-# Nova URL funcional do arquivo CSV
+# URL do CSV no servidor
 url = "http://multibeat.com.br/estudonautapy/prod.vcvd_eventos_adverso.csv"
 
-# Leitura dos dados
+# Função para carregar com headers personalizados
 @st.cache_data
 def carregar_dados():
-    return pd.read_csv(url, encoding="latin1", sep=";")
+    req = urllib.request.Request(
+        url,
+        headers={"User-Agent": "Mozilla/5.0"}
+    )
+    with urllib.request.urlopen(req) as response:
+        data = response.read()
+    return pd.read_csv(BytesIO(data), encoding="latin1", sep=";")
 
 df = carregar_dados()
 
